@@ -3,6 +3,16 @@ import {stages,blankProgress,stagePassed,canComplete,rhythmScore} from './course
 import {mutateProgress} from './backend/progress.js';
 import {sampleNotes,nearestSample} from './piano-audio.js';
 import {statSync} from 'node:fs';
+import {exercises,matchNotes,parseMidi,weeklySummary} from './exercises.js';
+import {velocityLayer} from './piano-audio.js';
+assert.equal(exercises.length,24);
+for(const e of exercises){assert.ok(e.events.length>0);for(const event of e.events){assert.ok(event.beat>=0&&event.duration>0);assert.ok(event.notes.every(n=>Number.isInteger(n)&&n>=0&&n<=127));}}
+assert.equal(matchNotes([67,60,64],[60,64,67]),true);assert.equal(matchNotes([60,64],[60,64,67]),false);assert.equal(matchNotes([60,60],[60]),true);
+assert.deepEqual(parseMidi([0x92,60,100]),{type:'on',note:60,velocity:100});assert.deepEqual(parseMidi([0x90,60,0]),{type:'off',note:60});assert.deepEqual(parseMidi([0xb0,64,127]),{type:'pedal',down:true});assert.equal(parseMidi([0x90,200,80]),null);
+assert.deepEqual([35,80,115].map(velocityLayer),['soft','medium','loud']);
+const goalProgress=mutateProgress(blankProgress(),'weekly',{weekly:{sessions:4,minutes:150}});assert.equal(goalProgress.weekly.minutes,150);assert.throws(()=>mutateProgress(blankProgress(),'weekly',{weekly:{sessions:8,minutes:100}}));
+goalProgress.journal=[{date:'2026-10-04T18:00:00Z',minutes:30},{date:'2026-10-03T10:00:00Z',minutes:20}];const week=weeklySummary(goalProgress,new Date('2026-10-05T10:00:00Z'));assert.equal(week.start,'2026-10-05');assert.equal(week.sessions,1);assert.equal(week.minutes,30);
+for(const layer of ['soft','loud'])for(const name of ['C3','Ds3','Fs3','A3','C4','Ds4','Fs4','A4','C5','Ds5','Fs5','A5','C6','Ds6'])assert.ok(statSync(new URL(`samples/${layer}/${name}.mp3`,import.meta.url)).size>1000);
 assert.equal(sampleNotes.length,14);
 for(let n=48;n<=87;n++)assert.ok(Math.abs(nearestSample(n)-n)<=1,'Sampler covers keyboard, chords and inversions');
 for(const name of ['C3','Ds3','Fs3','A3','C4','Ds4','Fs4','A4','C5','Ds5','Fs5','A5','C6','Ds6'])assert.ok(statSync(new URL(`samples/${name}.mp3`,import.meta.url)).size>1000);

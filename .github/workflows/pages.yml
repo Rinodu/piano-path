@@ -24,7 +24,7 @@ jobs:
       - run: node tests.mjs
       - run: |
           mkdir _site
-          cp index.html style.css app.js piano-audio.js course.js config.js favicon.svg _site/
+          cp index.html style.css app.js learning.js exercises.js piano-audio.js course.js config.js favicon.svg _site/
           cp -r samples _site/
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5

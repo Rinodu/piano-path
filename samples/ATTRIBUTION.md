@@ -6,9 +6,9 @@ License: [Creative Commons Attribution 3.0 Unported](https://creativecommons.org
 Original library: https://archive.org/details/SalamanderGrandPianoV3
 Project and license: https://github.com/sfzinstruments/SalamanderGrandPiano
 
-These 14 MP3 files were obtained unchanged from the Tone.js audio repository:
-https://github.com/Tonejs/audio/tree/efd8296360f9526e379bfbe5c1698ff54d6a1d34/salamander
+These 42 stereo MP3 files are derived from the original FLAC samples at velocity layers **v4 (soft), v8 (medium), v12 (loud)**:
+https://github.com/sfzinstruments/SalamanderGrandPiano/tree/3382bf9496bba2486f5ab0de55a264d1dfc38404/Samples
 
-The upstream README is retained as SOURCE-README.txt. It describes the Yamaha C5 recordings, credits Alexander Holm, and identifies the CC BY 3.0 license. The web-ready collection does not include every velocity layer, release, or resonance sample from the full library.
+The upstream README is retained as SOURCE-README.txt. The web-ready collection does not include every velocity layer, release, or resonance sample from the full library.
 
-Piano Path uses the closest recorded note and changes playback rate for intervening notes, plus a gain fade when a key is released. Files are not otherwise altered. Samples are hosted with the website; no third-party audio CDN is needed at runtime.
+Changes: converted to 44.1 kHz stereo MP3, retained at most 8 seconds, applied a 0.2-second end fade when the sample reaches that duration. Piano Path uses the closest recorded note and changes playback rate for intervening notes, plus a gain fade when a key is released. MIDI velocity chooses the layer and gain. Samples are hosted with the website; no third-party audio CDN is needed at runtime.
