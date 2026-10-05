@@ -6,6 +6,8 @@ Website modul piano Bahasa Indonesia: 8 tahap, 24 chapter, 40 soal, tugas prakti
 
 `python -m http.server 4173` lalu buka http://localhost:4173. Jalankan `node tests.mjs` untuk pemeriksaan logika progres dan penilaian. GitHub Actions menjalankan pemeriksaan ini sebelum deploy Pages.
 
+Keyboard mendukung pointer drag/glissando dan sentuhan. Sustain tetap aktif ketika berpindah tab browser atau halaman modul; sampel tetap meluruh alami. Nonaktifkan checkbox sustain untuk melepas bunyi. `node tests-input.cjs` menguji drag mouse/sentuh dan perpindahan tab dengan Playwright (jika tersedia di lingkungan pengujian). Gunakan `PIANO_URL` untuk menguji situs publik; default localhost:4173.
+
 ## Model akses
 
 Materi, keyboard dua oktaf, akor/inversi, progresi, metronom, ketukan, baca not, latihan telinga, dan perekam tersedia bagi tamu. Tamu tidak menyimpan progres. Password diverifikasi di Supabase Edge Function; sesi tersimpan di memori halaman selama maksimal 8 jam. Refresh meminta login kembali. Satu password mengakses satu profil, termasuk pada perangkat berbeda.
