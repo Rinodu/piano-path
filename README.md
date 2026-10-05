@@ -16,13 +16,13 @@ Database menggunakan RLS tanpa akses langsung dari anon/authenticated. Server me
 
 ## Deploy ulang
 
-Repository publik `Rinodu/piano-path`, GitHub Pages memakai workflow `.github/workflows/pages.yml`. File relatif membuat website kompatibel dengan subpath Pages. Artifact publik hanya enam file frontend dan `.nojekyll`, tidak mencakup kode server atau tes.
+Repository publik `Rinodu/piano-path`, GitHub Pages memakai workflow `.github/workflows/pages.yml`. File relatif membuat website kompatibel dengan subpath Pages. Artifact publik file frontend, sampel piano, dan `.nojekyll`, tidak mencakup kode server atau tes.
 
 Backend: `backend/schema.sql`, `backend/index.ts`, `backend/progress.js`, dan `course.js`. Function `piano-api` menggunakan verifikasi sesi sendiri, sehingga gateway `verify_jwt=false`. Deploy semua file dengan susunan direktori dipertahankan. Provision satu baris `piano_access` secara privat. Password dapat diganti dengan salt dan hash baru lalu menghapus sesi lama. Layanan diperlukan untuk progres; materi tetap berjalan ketika backend tidak tersedia.
 
 ## Batasan yang disengaja
 
-- Keyboard memakai sintesis harmonik, bukan sampel grand piano.
+- Keyboard dan seluruh latihan piano memakai 14 sampel Salamander Grand Piano oleh Alexander Holm (CC BY 3.0), sekitar 0,9 MB. Kredit serta asal file ada di `samples/ATTRIBUTION.md`. Playback rate mengisi nada di antara sampel; versi web memakai satu lapisan sampel, bukan seluruh velocity/resonance library.
 - Perekam memakai mikrofon lokal, maksimum 10 menit; unduh sebelum pindah halaman. Audio tidak diunggah.
 - Skor ritme memperkirakan ketepatan tap dan dipengaruhi latensi perangkat. Ini alat latihan, bukan pengukuran profesional.
 - Cadangan JSON menggabungkan pencapaian dan jurnal maksimal 1000 catatan; hasil impor adalah deklarasi pengguna.
