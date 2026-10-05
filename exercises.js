@@ -1,5 +1,6 @@
 import {stages,stagePassed} from './course.js';
 import {isCurriculumRecord,recommendation} from './curriculum-progress.js';
+import {beginnerSongs} from './song-recommendations.js';
 import {curriculumExercises} from './curriculum-practice.js';
 export const noteName=n=>['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'][n%12]+(Math.floor(n/12)-1);
 const seq=(notes,durations=1,velocity=80,start=0)=>{let beat=start;return notes.map((n,i)=>{const duration=Array.isArray(durations)?durations[i]:durations;const event={notes:n===null?[]:Array.isArray(n)?n:[n],beat,duration,velocity:Array.isArray(velocity)?velocity[i]:velocity};beat+=duration;return event;});};
@@ -32,7 +33,7 @@ export const exercises=[
  {title:'Dua interpretasi untuk dibandingkan',events:[...seq([60,62,64,67,60],1,70),...seq([60,62,64,67,60],[1,1,1,1.4,2],[40,55,75,105,45],6)]}
 ].map((e,i)=>({...e,id:String(i),stage:Math.floor(i/3)+1,chapter:i%3}));
 export function exerciseFor(stage,chapter){return exercises[(stage-1)*3+chapter];}
-exercises.push(...curriculumExercises.map((e,i)=>({...e,id:String(i+24)})));
+exercises.push(...[...curriculumExercises,...beginnerSongs].map((e,i)=>({...e,id:String(i+24)})));
 export function noteDrill(mode='sequence'){
  if(mode==='chord')return [{notes:[60,64,67]},{notes:[65,69,72]},{notes:[59,62,67]},{notes:[60,64,69]}];
  if(mode==='random')return Array.from({length:8},()=>({notes:[[60,62,64,65,67,69,71,72][Math.floor(Math.random()*8)]]}));

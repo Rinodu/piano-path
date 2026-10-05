@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {songRecommendations,beginnerSongs} from './song-recommendations.js';
 import {curriculum,rubric,dailyPlans,majorScales} from './curriculum.js';
 import {chapterDemos,repertoire,midiBytes,readingVariation,scoreSvg} from './curriculum-practice.js';
 import {encodeRecord,decodeRecord,observations,competency,blockPassed,recommendation,validRecord,validDates} from './curriculum-progress.js';
@@ -8,9 +9,10 @@ import {readMidi} from './midi-file.js';
 import {weeklySummary,exercises} from './exercises.js';
 assert.equal(curriculum.length,12);assert.equal(curriculum.filter(b=>b.number).length,8);assert.equal(curriculum.flatMap(b=>b.chapters).length,36);assert.equal(new Set(curriculum.flatMap(b=>b.chapters.map(c=>c.id))).size,36);assert.equal(rubric.length,7);assert.equal(majorScales.length,12);
 for(const b of curriculum){for(const id of b.requires)assert.ok(curriculum.some(x=>x.id===id));for(const c of b.chapters){for(const field of ['id','title','goal','example','solo','error'])assert.ok(c[field].length>0);assert.ok(c.body.length>=3);assert.ok(c.terms.length>=2);assert.equal(c.steps.length,3);assert.equal(c.notes.length,c.fingers.length);assert.ok(c.quiz.options[c.quiz.answer]);}}
+for(const b of curriculum){assert.equal(songRecommendations[b.id].length,3);for(const song of songRecommendations[b.id]){for(const key of ['title','composer','version','focus','ready','difficult'])assert.ok(song[key].length>0);assert.equal(new URL(song.source).protocol,'https:');if(song.playKey)assert.ok(beginnerSongs.some(p=>p.key===song.playKey));}}
 for(const p of dailyPlans)assert.equal(p.parts.reduce((n,x)=>n+x[1],0),p.minutes);
-assert.equal(exercises.length,96);assert.equal(chapterDemos.length,36);assert.equal(repertoire.length,36);
-for(const e of [...chapterDemos,...repertoire,readingVariation(987)]){const midi=readMidi(midiBytes(e).buffer);assert.ok(midi.notes.length>0);assert.ok(midi.notes.every(n=>n.note>=21&&n.note<=108));assert.ok(Math.abs(midi.duration-Math.max(...e.events.map(x=>x.beat+x.duration)))<.01);assert.match(scoreSvg(e),/<svg/);assert.ok(e.events.every(x=>x.duration>0&&x.beat>=0));}
+assert.equal(exercises.length,99);assert.equal(chapterDemos.length,36);assert.equal(repertoire.length,36);
+for(const e of [...chapterDemos,...repertoire,...beginnerSongs,readingVariation(987)]){const midi=readMidi(midiBytes(e).buffer);assert.ok(midi.notes.length>0);assert.ok(midi.notes.every(n=>n.note>=21&&n.note<=108));assert.ok(Math.abs(midi.duration-Math.max(...e.events.map(x=>x.beat+x.duration)))<.01);assert.match(scoreSvg(e),/<svg/);assert.ok(e.events.every(x=>x.duration>0&&x.beat>=0));}
 assert.deepEqual(readingVariation(42),readingVariation(42));assert.notDeepEqual(readingVariation(42).events,readingVariation(43).events);
 const dates=['2026-01-01','2026-01-02','2026-01-03'];assert.equal(validDates(dates,3),true);assert.equal(validDates(['2026-02-30','2026-01-02','2026-01-03'],3),false);assert.equal(validDates(['9999-01-01',...dates],4),false);assert.equal(validDates(dates,2),false);
 let p=blankProgress();const before=structuredClone(p);
@@ -28,4 +30,4 @@ assert.ok(p.journal.length<1000);assert.equal(weeklySummary(p).minutes,0,'eviden
 const backup=mutateProgress(blankProgress(),'import',{progress:p});assert.deepEqual(backup.journal,p.journal);assert.equal(blockPassed(backup.journal,'advanced'),true);
 const advancedOnly=p.journal.filter(e=>['individual','independent','portfolio'].includes(decodeRecord(e)?.chapter));assert.equal(blockPassed(advancedOnly,'advanced'),false,'prerequisites cannot be bypassed');
 record({...assessment(first),rubric:[2,3,3,3,3,3,3]});assert.equal(competency(p.journal,curriculum[0],first).qualified,false,'latest review controls current competency; old evidence retained');assert.ok(observations(p.journal,first.id).assessments.length>=2);assert.equal(recommendation(p.journal).block.id,'foundation');
-console.log('PASS: 36 chapters, 12 prerequisite groups, 96 examples, original MIDI round trips, daily plans, 7 descriptive rubrics, distinct evidence states, self/reported teacher distinction, advanced dates, guest-equivalent records, v1 preservation and backup merge.');
+console.log('PASS: 36 chapters, 12 prerequisite groups, 99 examples, 36 song recommendations, original MIDI round trips, daily plans, 7 descriptive rubrics, distinct evidence states, self/reported teacher distinction, advanced dates, guest-equivalent records, v1 preservation and backup merge.');

@@ -52,3 +52,7 @@ Simpan chapter mengirim record sesi satu per satu. Bila login ditutup, jaringan 
 - Password/database produksi, perangkat MIDI fisik, izin mikrofon nyata, half-pedal dan penilaian teknik tubuh tidak diuji. Database diuji melalui backend simulasi menggunakan `mutateProgress` yang sama; backend produksi tidak diubah.
 
 GitHub Pages packaging menyertakan semua modul baru; pemeriksaan kurikulum ditambahkan sebelum deploy. Perubahan diajukan di branch/PR agar dapat ditinjau sebelum masuk ke situs produksi.
+
+## Tambahan: lagu di setiap tahap
+
+Semua 12 bagian sekarang mempunyai tiga rekomendasi lagu (36 penempatan), termasuk tahap lama melalui tautan materi baru. Versi melodi saja, pengiring sederhana, easy piano, partitur asli, atau proyek aransemen lanjut disebut secara eksplisit; tingkat tidak disimpulkan dari judul. Tujuan, tanda siap mulai, bagian sulit, rencana latihan, tugas dan sumber ada pada setiap pilihan. Tiga melodi pemula mempunyai audio/tuts, pola lengkap dengan jari, dan MIDI lokal; total player sekarang 99. Lagu eksternal lainnya memakai sumber partitur/katalog, tanpa menyalin materi berhak cipta atau menjanjikan versi penerbit tertentu mudah bagi semua orang. Metadata/tautan diperiksa melalui Mutopia Project dan katalog Hal Leonard; penempatan tahap adalah pertimbangan pedagogis Piano Path.

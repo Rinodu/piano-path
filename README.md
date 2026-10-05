@@ -63,3 +63,7 @@ Piano kini tersedia langsung pada setiap chapter sebagai panel yang bisa dilipat
 Pemutar MIDI di studio membaca file lokal format 0/1, PPQN/SMPTE, running status, perubahan tempo, velocity dan sustain CC64. Kontrol: putar/jeda/stop, seek, kecepatan 50–150%, track melodis, ulang, dan ikuti tuts. Nada lagu terpisah dari input permainan manual sehingga bisa bermain bersama. File tidak diunggah. Batas: 5 MB, 100.000 event, 20.000 nada, 60 menit. Drum, program changes dan pitch bend tidak diterapkan; semua track melodis memakai grand piano.
 
 `node tests-midi.mjs` memeriksa parser tanpa dependensi. `node tests-song.cjs` memeriksa interaksi pemutar/88 tuts/piano chapter dengan Playwright; mendukung `PIANO_URL`.
+
+## Lagu sesuai tahap
+
+Setiap tahap/jalur memiliki tiga pilihan lagu dengan versi/aransemen, tujuan, kesiapan, bagian sulit, tugas/rubrik, dan sumber partitur. Penempatan adalah rekomendasi pedagogis, bukan padanan grade. Contoh: tahap 1 Hot Cross Buns/Mary Had a Little Lamb/tema Ode to Joy; menengah menuju Burgmüller, Schumann, Clementi dan Chopin; jalur pop memakai edisi easy piano berizin, jazz menggunakan blues serta lead sheet standar. Lagu eksternal tidak otomatis tersedia di player. Tiga susunan melodi pemula tersedia sebagai audio/tuts/MIDI lokal (total 99 pilihan player), dibuat dari melodi tradisional/tema Beethoven, tanpa menyalin aransemen modern. Buka detail lagu untuk pola lengkap/penjarian. Komposisi, edisi, aransemen dan rekaman mempunyai hak terpisah.
