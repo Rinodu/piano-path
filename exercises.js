@@ -1,4 +1,6 @@
 import {stages,stagePassed} from './course.js';
+import {isCurriculumRecord,recommendation} from './curriculum-progress.js';
+import {curriculumExercises} from './curriculum-practice.js';
 export const noteName=n=>['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'][n%12]+(Math.floor(n/12)-1);
 const seq=(notes,durations=1,velocity=80,start=0)=>{let beat=start;return notes.map((n,i)=>{const duration=Array.isArray(durations)?durations[i]:durations;const event={notes:n===null?[]:Array.isArray(n)?n:[n],beat,duration,velocity:Array.isArray(velocity)?velocity[i]:velocity};beat+=duration;return event;});};
 const chord=(notes,beat,duration=4,velocity=75)=>({notes,beat,duration,velocity});
@@ -30,6 +32,7 @@ export const exercises=[
  {title:'Dua interpretasi untuk dibandingkan',events:[...seq([60,62,64,67,60],1,70),...seq([60,62,64,67,60],[1,1,1,1.4,2],[40,55,75,105,45],6)]}
 ].map((e,i)=>({...e,id:String(i),stage:Math.floor(i/3)+1,chapter:i%3}));
 export function exerciseFor(stage,chapter){return exercises[(stage-1)*3+chapter];}
+exercises.push(...curriculumExercises.map((e,i)=>({...e,id:String(i+24)})));
 export function noteDrill(mode='sequence'){
  if(mode==='chord')return [{notes:[60,64,67]},{notes:[65,69,72]},{notes:[59,62,67]},{notes:[60,64,69]}];
  if(mode==='random')return Array.from({length:8},()=>({notes:[[60,62,64,65,67,69,71,72][Math.floor(Math.random()*8)]]}));
@@ -37,11 +40,12 @@ export function noteDrill(mode='sequence'){
 }
 export function matchNotes(actual,expected){const a=[...new Set(actual)].sort((x,y)=>x-y),b=[...new Set(expected)].sort((x,y)=>x-y);return a.length===b.length&&a.every((n,i)=>n===b[i]);}
 export function parseMidi(data){if(!data||data.length<3)return null;const [status,n,value]=data;if(![status,n,value].every(Number.isInteger)||n<0||n>127||value<0||value>127)return null;const type=status&0xf0;if(type===0x90&&value>0)return {type:'on',note:n,velocity:value};if(type===0x80||(type===0x90&&value===0))return {type:'off',note:n};if(type===0xb0&&n===64)return {type:'pedal',down:value>=64};return null;}
-function localDate(date){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Bangkok',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(date));}
+function localDate(date){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(date));}
 export function weeklySummary(p,now=new Date()){
  const today=localDate(now),monday=new Date(today+'T00:00:00Z');monday.setUTCDate(monday.getUTCDate()-(monday.getUTCDay()+6)%7);const start=monday.toISOString().slice(0,10);
- const entries=p.journal.filter(e=>{const d=localDate(e.date);return d>=start&&d<=today;});const next=stages.find(s=>!stagePassed(p.stages[s.id]));const chapter=next?next.lessons.findIndex((_,i)=>!p.stages[next.id]?.lessons?.includes(i)):-1;
+ const entries=p.journal.filter(e=>!isCurriculumRecord(e)).filter(e=>{const d=localDate(e.date);return d>=start&&d<=today;});const next=stages.find(s=>!stagePassed(p.stages[s.id]));const chapter=next?next.lessons.findIndex((_,i)=>!p.stages[next.id]?.lessons?.includes(i)):-1;
  let focus=next?(chapter>=0?`Pelajari chapter ${chapter+1}: ${next.lessons[chapter].title}`:!(p.stages[next.id]?.quiz>=80)?'Kerjakan kuis tahap ini sampai minimal 80%.':'Selesaikan checklist dan rekam tugas praktik.'):'Semua tahap lulus. Pilih tiga fokus untuk pendalaman 12 minggu.';
  const low=next&&p.stages[next.id]?.rubric?.findIndex(n=>n<3);if(low>=0)focus=`Perbaiki ${['ritme','ketepatan not','kontrol gerakan','frasa dan keseimbangan'][low]}, lalu rekam ulang praktik.`;
- return {start,sessions:entries.length,minutes:entries.reduce((n,e)=>n+e.minutes,0),goal:p.weekly||{sessions:3,minutes:120},stage:next?.id||8,chapter:chapter>=0?chapter:3,focus};
+ const current=recommendation(p.journal,p.path);focus=current.focus;const href=current.block?`#learn/${current.block.id}/${current.chapter.id}`:'#home';
+ return {href,start,sessions:entries.length,minutes:entries.reduce((n,e)=>n+e.minutes,0),goal:p.weekly||{sessions:3,minutes:120},stage:next?.id||8,chapter:chapter>=0?chapter:3,focus};
 }
