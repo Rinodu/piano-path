@@ -1,0 +1,1 @@
+{"name":"piano-path","private":true,"type":"module","scripts":{"test":"node tests.mjs"}}
