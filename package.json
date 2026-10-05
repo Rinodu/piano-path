@@ -4,6 +4,6 @@
   "type": "module",
   "scripts": {
     "test": "node tests.mjs && node tests-midi.mjs && node tests-curriculum.mjs",
-    "test:browser": "node tests-curriculum.cjs && node tests-learning.cjs && node tests-input.cjs && node tests-song.cjs && node tests-curriculum-audio.cjs"
+    "test:browser": "node tests-interactive.cjs && node tests-curriculum.cjs && node tests-learning.cjs && node tests-input.cjs && node tests-song.cjs && node tests-curriculum-audio.cjs"
   }
 }

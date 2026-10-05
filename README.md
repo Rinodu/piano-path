@@ -67,3 +67,10 @@ Pemutar MIDI di studio membaca file lokal format 0/1, PPQN/SMPTE, running status
 ## Lagu sesuai tahap
 
 Setiap tahap/jalur memiliki tiga pilihan lagu dengan versi/aransemen, tujuan, kesiapan, bagian sulit, tugas/rubrik, dan sumber partitur. Penempatan adalah rekomendasi pedagogis, bukan padanan grade. Contoh: tahap 1 Hot Cross Buns/Mary Had a Little Lamb/tema Ode to Joy; menengah menuju Burgmüller, Schumann, Clementi dan Chopin; jalur pop memakai edisi easy piano berizin, jazz menggunakan blues serta lead sheet standar. Lagu eksternal tidak otomatis tersedia di player. Tiga susunan melodi pemula tersedia sebagai audio/tuts/MIDI lokal (total 99 pilihan player), dibuat dari melodi tradisional/tema Beethoven, tanpa menyalin aransemen modern. Buka detail lagu untuk pola lengkap/penjarian. Komposisi, edisi, aransemen dan rekaman mempunyai hak terpisah.
+
+
+## Mode esensial interaktif
+
+Seluruh 36 chapter baru membuka aktivitas terlebih dahulu: ringkasan materi, pasangan istilah, keputusan dengan koreksi, praktik bertahap dengan pengamatan, pola nada/akor/diam memakai piano virtual atau keyboard komputer, serta tap durasi sesuai demo. Bacaan lengkap dapat ditampilkan kembali. Tantangan membuka 88 tuts bila rentang demo memerlukannya. Akor membutuhkan nada serentak sebelum semua tuts dilepas; diam dilanjutkan manual setelah menghitung. Tap memeriksa interval waktu dengan toleransi 25%, termasuk durasi diam dan akhir terakhir. Hasil bukan pengukuran interpretasi, postur, artikulasi, dinamika, atau kompetensi utuh. Tidak memerlukan API atau mikrofon. Detail aktivitas bertahan selama sesi; menyelesaikan langkah/pola hanya mencatat latihan dicoba melalui mekanisme progres yang ada. Kuis dan rubrik tetap terpisah. Halaman 24 chapter lama tetap sebagai arsip.
+
+`node tests-interactive.cjs` memeriksa aktivitas di 36 chapter, koreksi keputusan, pengamatan wajib, akor/diam, timing tap dengan jam simulasi, referensi, tampilan 390px, dan status kompetensi. Tes browser memerlukan Playwright.

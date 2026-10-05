@@ -56,3 +56,8 @@ GitHub Pages packaging menyertakan semua modul baru; pemeriksaan kurikulum ditam
 ## Tambahan: lagu di setiap tahap
 
 Semua 12 bagian sekarang mempunyai tiga rekomendasi lagu (36 penempatan), termasuk tahap lama melalui tautan materi baru. Versi melodi saja, pengiring sederhana, easy piano, partitur asli, atau proyek aransemen lanjut disebut secara eksplisit; tingkat tidak disimpulkan dari judul. Tujuan, tanda siap mulai, bagian sulit, rencana latihan, tugas dan sumber ada pada setiap pilihan. Tiga melodi pemula mempunyai audio/tuts, pola lengkap dengan jari, dan MIDI lokal; total player sekarang 99. Lagu eksternal lainnya memakai sumber partitur/katalog, tanpa menyalin materi berhak cipta atau menjanjikan versi penerbit tertentu mudah bagi semua orang. Metadata/tautan diperiksa melalui Mutopia Project dan katalog Hal Leonard; penempatan tahap adalah pertimbangan pedagogis Piano Path.
+
+
+### Mode esensial interaktif
+
+36 chapter baru memiliki lima aktivitas berdasarkan data chapter: istilah, keputusan, pengamatan langkah, pola nada/akor/diam, dan tap durasi. Bacaan lengkap tetap tersedia melalui toggle. Nada berasal dari input manual piano, tidak dari pemutar demo; akor perlu semua nada ditahan bersama. Durasi diam pada tantangan nada dihitung sendiri, sedangkan latihan tap memeriksa jarak waktu. Hasil aktivitas bukan bukti otomatis penguasaan fisik/musikal. Detail sesi belum disimpan lintas perangkat; aktivitas selesai mencatat attempt dalam jurnal yang sudah ada. Halaman lama tetap arsip. Pengujian browser seluruh 36 chapter dan regresi kurikulum lulus; timing diuji dengan jam terkontrol, bukan pengukuran latensi perangkat fisik.

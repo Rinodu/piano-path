@@ -1,3 +1,4 @@
+import {termPairs,pitchSequence,rhythmDurations,interactivePanel} from './lesson-interactive.js';
 import assert from 'node:assert/strict';
 import {songRecommendations,beginnerSongs} from './song-recommendations.js';
 import {curriculum,rubric,dailyPlans,majorScales} from './curriculum.js';
@@ -31,3 +32,6 @@ const backup=mutateProgress(blankProgress(),'import',{progress:p});assert.deepEq
 const advancedOnly=p.journal.filter(e=>['individual','independent','portfolio'].includes(decodeRecord(e)?.chapter));assert.equal(blockPassed(advancedOnly,'advanced'),false,'prerequisites cannot be bypassed');
 record({...assessment(first),rubric:[2,3,3,3,3,3,3]});assert.equal(competency(p.journal,curriculum[0],first).qualified,false,'latest review controls current competency; old evidence retained');assert.ok(observations(p.journal,first.id).assessments.length>=2);assert.equal(recommendation(p.journal).block.id,'foundation');
 console.log('PASS: 36 chapters, 12 prerequisite groups, 99 examples, 36 song recommendations, original MIDI round trips, daily plans, 7 descriptive rubrics, distinct evidence states, self/reported teacher distinction, advanced dates, guest-equivalent records, v1 preservation and backup merge.');
+
+for(const b of curriculum)for(const c of b.chapters){const d=chapterDemos.find(x=>x.key===`demo:${c.id}`);assert.equal(termPairs(c).length,c.terms.length);assert.ok(termPairs(c).every(p=>p.term&&p.definition));assert.equal(pitchSequence(d).length,d.events.length);const durations=rhythmDurations(d);assert.ok(durations.every(x=>x>0));assert.ok(Math.abs(durations.reduce((a,b)=>a+b,0)-(Math.max(...d.events.map(e=>e.beat+e.duration))-Math.min(...d.events.map(e=>e.beat))))<1e-8);assert.match(interactivePanel(c,d),/lesson-pitch-start/);}
+const poly=rhythmDurations(chapterDemos.find(d=>d.key==='demo:individual'));assert.equal(poly.length,4);assert.ok(Math.abs(poly[1]-1/3)<1e-8);console.log('PASS: interactive coverage and overlapping-voice tap timeline.');
