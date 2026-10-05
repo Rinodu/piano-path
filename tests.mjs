@@ -13,8 +13,9 @@ assert.deepEqual([35,80,115].map(velocityLayer),['soft','medium','loud']);
 const goalProgress=mutateProgress(blankProgress(),'weekly',{weekly:{sessions:4,minutes:150}});assert.equal(goalProgress.weekly.minutes,150);assert.throws(()=>mutateProgress(blankProgress(),'weekly',{weekly:{sessions:8,minutes:100}}));
 goalProgress.journal=[{date:'2026-10-04T18:00:00Z',minutes:30},{date:'2026-10-03T10:00:00Z',minutes:20}];const week=weeklySummary(goalProgress,new Date('2026-10-05T10:00:00Z'));assert.equal(week.start,'2026-10-05');assert.equal(week.sessions,1);assert.equal(week.minutes,30);
 for(const layer of ['soft','loud'])for(const name of ['C3','Ds3','Fs3','A3','C4','Ds4','Fs4','A4','C5','Ds5','Fs5','A5','C6','Ds6'])assert.ok(statSync(new URL(`samples/${layer}/${name}.mp3`,import.meta.url)).size>1000);
-assert.equal(sampleNotes.length,14);
-for(let n=48;n<=87;n++)assert.ok(Math.abs(nearestSample(n)-n)<=1,'Sampler covers keyboard, chords and inversions');
+assert.equal(sampleNotes.length,30);
+for(const n of sampleNotes){const name=['C','Cs','D','Ds','E','F','Fs','G','Gs','A','As','B'][n%12]+(Math.floor(n/12)-1);for(const layer of ['','soft/','loud/'])assert.ok(statSync(new URL(`samples/${layer}${name}.mp3`,import.meta.url)).size>1000);}
+for(let n=21;n<=108;n++)assert.ok(Math.abs(nearestSample(n)-n)<=1,'Sampler covers keyboard, chords and inversions');
 for(const name of ['C3','Ds3','Fs3','A3','C4','Ds4','Fs4','A4','C5','Ds5','Fs5','A5','C6','Ds6'])assert.ok(statSync(new URL(`samples/${name}.mp3`,import.meta.url)).size>1000);
 let p=blankProgress();assert.equal(stages.length,8);assert.equal(stages.reduce((n,s)=>n+s.lessons.length,0),24);assert.throws(()=>mutateProgress(p,'lesson',{stage:2,chapter:0}));
 for(const s of stages){assert.equal(s.quiz.length,5);assert.equal(s.checks.length,3);assert.equal(canComplete(p,s.id),true);for(let c=0;c<3;c++)p=mutateProgress(p,'lesson',{stage:s.id,chapter:c});for(let c=0;c<3;c++)p=mutateProgress(p,'check',{stage:s.id,index:c,checked:true});p=mutateProgress(p,'quiz',{stage:s.id,answers:s.quiz.map(q=>q.answer)});p=mutateProgress(p,'practice',{stage:s.id,rubric:[3,4,3,4],reviewed:true});assert.equal(stagePassed(p.stages[s.id]),true);}

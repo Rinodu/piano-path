@@ -1,6 +1,6 @@
 // Salamander Grand Piano / Alexander Holm, CC BY 3.0. See samples/ATTRIBUTION.md.
-export const sampleNotes = Array.from({length:14},(_,i)=>48+i*3);
-const fileNames=['C3','Ds3','Fs3','A3','C4','Ds4','Fs4','A4','C5','Ds5','Fs5','A5','C6','Ds6'];
+export const sampleNotes = Array.from({length:30},(_,i)=>21+i*3);
+const fileNames=sampleNotes.map(n=>['C','Cs','D','Ds','E','F','Fs','G','Gs','A','As','B'][n%12]+(Math.floor(n/12)-1));
 let buffers=new Map(),loading;
 export function velocityLayer(velocity){return velocity<=50?'soft':velocity<=95?'medium':'loud';}
 export function nearestSample(note){return sampleNotes.reduce((best,n)=>Math.abs(n-note)<Math.abs(best-note)?n:best,sampleNotes[0]);}

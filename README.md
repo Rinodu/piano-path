@@ -32,10 +32,16 @@ Backend: `backend/schema.sql`, `backend/index.ts`, `backend/progress.js`, dan `c
 
 ## Batasan yang disengaja
 
-- Keyboard dan seluruh latihan piano memakai 42 sampel Salamander Grand Piano oleh Alexander Holm (CC BY 3.0), sekitar 2,2 MB, dengan tiga lapisan rekaman dinamika. Kredit, sumber, dan perubahan format ada di `samples/ATTRIBUTION.md`. Playback rate mengisi nada di antara sampel; versi web memakai tiga dari 16 lapisan, bukan seluruh velocity/resonance library.
+- Keyboard dan seluruh latihan piano memakai 90 sampel Salamander Grand Piano oleh Alexander Holm (CC BY 3.0), sekitar 4,5 MB, dengan tiga lapisan rekaman dinamika. Kredit, sumber, dan perubahan format ada di `samples/ATTRIBUTION.md`. Playback rate mengisi nada di antara sampel; versi web memakai tiga dari 16 lapisan, bukan seluruh velocity/resonance library.
 - Perekam memakai mikrofon lokal, maksimum 10 menit; unduh sebelum pindah halaman. Audio tidak diunggah.
 - Skor ritme memperkirakan ketepatan tap dan dipengaruhi latensi perangkat. Ini alat latihan, bukan pengukuran profesional.
 - Cadangan JSON menggabungkan pencapaian dan jurnal maksimal 1000 catatan; hasil impor adalah deklarasi pengguna.
 - Progres memakai versi optimistis agar dua perangkat tidak saling menimpa. Jika konflik, muat ulang data dan ulangi tindakan.
 - Google Fonts opsional; font sistem tetap tersedia jika offline.
 `node tests-learning.cjs` memeriksa 24 player chapter, penilaian nada/akor, tiga layer sampel, loop dan kenaikan tempo, MIDI simulasi, serta tampilan mobile. Memerlukan Playwright yang tersedia di lingkungan pengujian; `PIANO_URL` dapat menunjuk situs publik.
+
+Piano kini tersedia langsung pada setiap chapter sebagai panel yang bisa dilipat. Pilih 25 atau 88 tuts (A0–C8); slider menggeser rentang, tombol C tengah memusatkan tampilan, dan oktaf keyboard komputer dapat diganti. Semua nada 88 tuts memiliki sampel terdekat maksimal satu semitone, dalam tiga lapisan velocity.
+
+Pemutar MIDI di studio membaca file lokal format 0/1, PPQN/SMPTE, running status, perubahan tempo, velocity dan sustain CC64. Kontrol: putar/jeda/stop, seek, kecepatan 50–150%, track melodis, ulang, dan ikuti tuts. Nada lagu terpisah dari input permainan manual sehingga bisa bermain bersama. File tidak diunggah. Batas: 5 MB, 100.000 event, 20.000 nada, 60 menit. Drum, program changes dan pitch bend tidak diterapkan; semua track melodis memakai grand piano.
+
+`node tests-midi.mjs` memeriksa parser tanpa dependensi. `node tests-song.cjs` memeriksa interaksi pemutar/88 tuts/piano chapter dengan Playwright; mendukung `PIANO_URL`.

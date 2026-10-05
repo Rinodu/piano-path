@@ -6,7 +6,7 @@ License: [Creative Commons Attribution 3.0 Unported](https://creativecommons.org
 Original library: https://archive.org/details/SalamanderGrandPianoV3
 Project and license: https://github.com/sfzinstruments/SalamanderGrandPiano
 
-These 42 stereo MP3 files are derived from the original FLAC samples at velocity layers **v4 (soft), v8 (medium), v12 (loud)**:
+These 90 stereo MP3 files are derived from the original FLAC samples at velocity layers **v4 (soft), v8 (medium), v12 (loud)**:
 https://github.com/sfzinstruments/SalamanderGrandPiano/tree/3382bf9496bba2486f5ab0de55a264d1dfc38404/Samples
 
 The upstream README is retained as SOURCE-README.txt. The web-ready collection does not include every velocity layer, release, or resonance sample from the full library.
