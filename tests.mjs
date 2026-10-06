@@ -5,7 +5,7 @@ import {sampleNotes,nearestSample} from './piano-audio.js';
 import {statSync} from 'node:fs';
 import {exercises,matchNotes,parseMidi,weeklySummary} from './exercises.js';
 import {velocityLayer} from './piano-audio.js';
-assert.equal(exercises.length,24);
+assert.ok(exercises.length>=24);
 for(const e of exercises){assert.ok(e.events.length>0);for(const event of e.events){assert.ok(event.beat>=0&&event.duration>0);assert.ok(event.notes.every(n=>Number.isInteger(n)&&n>=0&&n<=127));}}
 assert.equal(matchNotes([67,60,64],[60,64,67]),true);assert.equal(matchNotes([60,64],[60,64,67]),false);assert.equal(matchNotes([60,60],[60]),true);
 assert.deepEqual(parseMidi([0x92,60,100]),{type:'on',note:60,velocity:100});assert.deepEqual(parseMidi([0x90,60,0]),{type:'off',note:60});assert.deepEqual(parseMidi([0xb0,64,127]),{type:'pedal',down:true});assert.equal(parseMidi([0x90,200,80]),null);

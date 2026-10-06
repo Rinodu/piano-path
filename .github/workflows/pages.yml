@@ -23,9 +23,11 @@ jobs:
           node-version: '22'
       - run: node tests.mjs
       - run: node tests-midi.mjs
+      - run: node tests-curriculum.mjs
+      - run: node tests-videos.mjs
       - run: |
           mkdir _site
-          cp index.html style.css app.js midi-file.js learning.js exercises.js piano-audio.js course.js config.js favicon.svg _site/
+          cp index.html style.css app.js midi-file.js learning.js exercises.js piano-audio.js course.js curriculum.js curriculum-practice.js curriculum-progress.js curriculum-ui.js chapter-videos.js video-ui.js song-recommendations.js song-ui.js lesson-interactive.js config.js favicon.svg _site/
           cp -r samples _site/
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5

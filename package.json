@@ -1,1 +1,9 @@
-{"name":"piano-path","private":true,"type":"module","scripts":{"test":"node tests.mjs"}}
+{
+  "name": "piano-path",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests.mjs && node tests-midi.mjs && node tests-curriculum.mjs && node tests-videos.mjs",
+    "test:browser": "node tests-videos.cjs && node tests-interactive.cjs && node tests-curriculum.cjs && node tests-learning.cjs && node tests-input.cjs && node tests-song.cjs && node tests-curriculum-audio.cjs"
+  }
+}
