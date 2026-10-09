@@ -83,6 +83,6 @@ Pemutar YouTube privacy-enhanced dimuat setelah klik, tanpa autoplay. Tautan lan
 
 ### Latihan MIDI dengan balok jatuh
 
-Buka `#falling`, pilih file MIDI lokal, track dan kecepatan. Balok turun mengikuti timeline pemutar yang sama, dengan hitungan awal dua detik. Piano USB memakai pengaturan Web MIDI yang tetap terhubung saat pindah halaman. Contoh bisa dibisukan untuk latihan mandiri. Skor sesi lokal menghitung onset nada dalam toleransi 250 ms, bukan durasi tahan/pedal/ekspresi, dan tidak mengubah progres chapter. Koreksi waktu input -500 sampai 500 ms tersedia untuk perangkat dengan latensi. Seek, ganti track, ulang lagu, dan reset memulai hitungan baru.
+Buka `#falling`, pilih file MIDI lokal, track dan kecepatan. Balok turun mengikuti timeline pemutar yang sama, dengan hitungan awal dua detik. Piano USB memakai pengaturan Web MIDI yang tetap terhubung saat pindah halaman. Contoh bisa dibisukan untuk latihan mandiri. Skor sesi lokal menghitung onset dalam toleransi 250 ms, durasi tekan sampai note-off (toleransi 20% atau 180 ms), dan dinamika velocity USB (±20), dan tidak mengubah progres chapter. Koreksi waktu input -500 sampai 500 ms tersedia untuk perangkat dengan latensi. Seek, ganti track, ulang lagu, dan reset memulai hitungan baru.
 
 Verifikasi browser: `node tests-falling.cjs` dengan Playwright terpasang dan `PIANO_URL` menunjuk website/server lokal. Pengujian USB memakai simulasi; perangkat fisik perlu dicoba pengguna.

@@ -24,10 +24,10 @@ export function readMidi(buffer){
   events.sort((a,b)=>a.tick-b.tick||a.track-b.track);let tick=0,time=0,tempo=500000;
   for(const event of events){time+=(event.tick-tick)*(fixed||tempo/1000000/division);tick=event.tick;event.time=time;if(event.type==='tempo')tempo=event.tempo;}
   const finalTick=Math.max(...tracks.map(t=>t.endTick)),end=time+(finalTick-tick)*(fixed||tempo/1000000/division),notes=[],active=new Map(),pedals=new Set(),pending=new Map();
-  const close=(n,t)=>{n.duration=Math.max(.01,t-n.time);notes.push(n);};
+  const close=(n,t)=>{n.duration=Math.max(.01,t-n.time);n.keyDuration??=n.duration;notes.push(n);};
   for(const e of events){if(e.type==='tempo'||e.channel===9)continue;const channel=String(e.channel),key=`${channel}:${e.note}`;
     if(e.type==='on'){const queue=active.get(key)||[];queue.push({note:e.note,velocity:e.velocity,time:e.time,track:e.track,channel:e.channel});active.set(key,queue);}
-    else if(e.type==='off'){const queue=active.get(key);if(!queue?.length)continue;const n=queue.shift();if(pedals.has(channel)){const held=pending.get(channel)||[];held.push(n);pending.set(channel,held);}else close(n,e.time);}
+    else if(e.type==='off'){const queue=active.get(key);if(!queue?.length)continue;const n=queue.shift();n.keyDuration=Math.max(.01,e.time-n.time);if(pedals.has(channel)){const held=pending.get(channel)||[];held.push(n);pending.set(channel,held);}else close(n,e.time);}
     else if(e.type==='cc'){const release=()=>{for(const n of pending.get(channel)||[])close(n,e.time);pending.delete(channel);};if(e.control===64){if(e.value>=64)pedals.add(channel);else{pedals.delete(channel);release();}}else{pedals.delete(channel);release();if(e.control!==121)for(const [k,queue] of active)if(k.startsWith(channel+':')){queue.forEach(n=>close(n,e.time));active.delete(k);}}}
   }
   for(const queue of [...active.values(),...pending.values()])queue.forEach(n=>close(n,end));
@@ -41,7 +41,7 @@ export function bindMidiFile(adapter){
   const $=s=>document.querySelector(s);let song=null,selected=[],position=0,speed=1,playing=false,disposed=false,generation=0,loadId=0,ctx,origin=0,index=0,timer,frame,voices=[],lastFollow=-1,revision=0;
   const clock=t=>`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;
   const now=()=>playing?Math.max(-(adapter.leadIn||0)*speed,Math.min(song.duration,position+(ctx.currentTime-origin)*speed)):position;
-  function display(){const t=now();adapter.timeline?.({notes:selected,time:t,speed,playing,revision});$('#song-seek').value=String(t);$('#song-time').textContent=t<0?`Siap dalam ${Math.ceil(-t/speed)} detik`:`${clock(t)} / ${clock(song?.duration||0)}`;}
+  function display(){const t=now();adapter.timeline?.({notes:selected,time:t,speed,playing,revision,duration:song?.duration||0});$('#song-seek').value=String(t);$('#song-time').textContent=t<0?`Siap dalam ${Math.ceil(-t/speed)} detik`:`${clock(t)} / ${clock(song?.duration||0)}`;}
   function clear(){generation++;clearInterval(timer);cancelAnimationFrame(frame);voices.forEach(v=>adapter.releaseTone(v.voice));voices=[];document.querySelectorAll('.key.song-on').forEach(k=>k.classList.remove('song-on'));}
   function pause(){if(playing)position=now();playing=false;clear();if(!disposed){$('#song-play').disabled=!song;$('#song-pause').disabled=true;display();}}
   function paint(){if(!playing||disposed)return;const t=now(),sounding=selected.filter(n=>n.time<=t&&n.time+n.duration>t).map(n=>n.note);document.querySelectorAll('.key').forEach(k=>k.classList.toggle('song-on',sounding.includes(Number(k.dataset.note))));if($('#song-follow').checked&&sounding.length&&sounding[0]!==lastFollow){lastFollow=sounding[0];adapter.follow(sounding[0]);}display();if(t>=song.duration){pause();if($('#song-loop').checked){position=0;revision++;play();}else $('#song-status').textContent='Lagu selesai. Coba ulang pada tempo lebih pelan.';return;}frame=requestAnimationFrame(paint);}
