@@ -17,3 +17,5 @@
 .video-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.chapter-video h4{margin-top:20px}.video-host:empty{display:none}.video-host{margin-top:20px}.video-host iframe{width:100%;aspect-ratio:16/9;display:block;border:0;border-radius:10px}.chapter-video .outline{background:transparent;color:var(--ink)}
 
 .usb-midi-settings{max-width:1240px;margin:0 auto 48px;padding:0 26px}
+
+#falling-roll{display:block;width:100%;height:320px;border-radius:10px 10px 0 0}.falling-panel .keyboard-scroll{padding-top:0}.falling-panel .keyboard{min-width:600px}.falling-panel .keyboard.full{min-width:1976px}header nav{flex-wrap:wrap}#practice-offset{width:100px}

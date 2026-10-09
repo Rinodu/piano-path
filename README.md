@@ -79,3 +79,10 @@ Seluruh 36 chapter baru membuka aktivitas terlebih dahulu: ringkasan materi, pas
 36 chapter kurikulum baru memiliki video YouTube dengan tingkat, prasyarat, fokus pengamatan, dan tugas setelah menonton. 30 video utama unik; video dasar dapat diulang untuk tugas yang lebih mendalam. Metadata judul/kreator dan ketersediaan oEmbed diperiksa pada 6 Oktober 2026; pemilihan tingkat berdasarkan topik/deskripsi sumber dan prasyarat, bukan klaim telah menonton semua video utuh. Timestamp khusus hanya dipakai jika dipublikasikan sumber (arpeggio 0:50); lainnya dimulai dari awal. Video bukan pengganti keseluruhan chapter atau evaluasi manusia.
 
 Pemutar YouTube privacy-enhanced dimuat setelah klik, tanpa autoplay. Tautan langsung selalu tersedia jika embed/region/browser membatasi pemutaran. Tidak ada video yang diunduh atau diunggah ulang; menonton tidak mengubah kompetensi/progres. Halaman arsip lama mempertahankan materi lama; video berada di 36 chapter kurikulum baru.
+
+
+### Latihan MIDI dengan balok jatuh
+
+Buka `#falling`, pilih file MIDI lokal, track dan kecepatan. Balok turun mengikuti timeline pemutar yang sama, dengan hitungan awal dua detik. Piano USB memakai pengaturan Web MIDI yang tetap terhubung saat pindah halaman. Contoh bisa dibisukan untuk latihan mandiri. Skor sesi lokal menghitung onset nada dalam toleransi 250 ms, bukan durasi tahan/pedal/ekspresi, dan tidak mengubah progres chapter. Koreksi waktu input -500 sampai 500 ms tersedia untuk perangkat dengan latensi. Seek, ganti track, ulang lagu, dan reset memulai hitungan baru.
+
+Verifikasi browser: `node tests-falling.cjs` dengan Playwright terpasang dan `PIANO_URL` menunjuk website/server lokal. Pengujian USB memakai simulasi; perangkat fisik perlu dicoba pengguna.
