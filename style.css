@@ -37,3 +37,5 @@
 .keyboard-playback{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:14px 0 8px}.keyboard-playback span{font-size:12px;color:var(--muted)}.keyboard-playback button{min-width:140px}
 
 .roll-legend .black-note:before{background:#b99aef}
+
+.keyboard .key.black.song-on,.keyboard .key.black.example-on{background:#b99aef;color:#24173c}.keyboard-pan-actions{display:flex;justify-content:space-between;gap:12px;margin:12px 0}.keyboard-pan-actions button{font-size:12px;padding:8px 12px}.keyboard-pan-label small{display:block;margin:4px 0 12px;line-height:1.5}#keyboard-pan:disabled{opacity:.4}
