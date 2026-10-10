@@ -4,7 +4,7 @@ import {curriculumHome,chapterPage,planPage,bindCurriculum,recordSummary} from '
 import {isCurriculumRecord} from './curriculum-progress.js';
 import {fallingPage,bindFalling} from './falling-practice.js';
 import {midiFilePanel,bindMidiFile} from './midi-file.js';
-import {playerPanel,studioLearning,weeklyPanel,bindPlayer,bindLearning,bindWeekly,createMidi} from './learning.js';
+import {playerPanel,studioLearning,weeklyPanel,bindPlayer,bindLearning,bindWeekly,createMidi} from './learning.js?v=20261010-key-release';
 import {loadPiano,startPianoTone,releasePianoTone} from './piano-audio.js';
 import {stages,melody,blankProgress,stagePassed,canComplete,rhythmScore} from './course.js';
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
