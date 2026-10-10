@@ -13,13 +13,13 @@ export function loadPiano(ctx){
   }))).then(entries=>{buffers=new Map(entries);}).catch(error=>{loading=undefined;throw error;});
   return loading;
 }
-export function startPianoTone(ctx,n,when=ctx.currentTime,velocity=80){
+export function startPianoTone(ctx,n,when=ctx.currentTime,velocity=80,output=ctx.destination){
   const root=nearestSample(n),source=ctx.createBufferSource(),gain=ctx.createGain();
   source.buffer=buffers.get(velocityLayer(velocity)+':'+root);
   if(!source.buffer)throw Error('Sampel piano belum siap.');
   source.playbackRate.value=2**((n-root)/12);
   gain.gain.setValueAtTime(.35+.55*Math.max(1,Math.min(127,velocity))/127,when);
-  source.connect(gain);gain.connect(ctx.destination);source.start(when);
+  source.connect(gain);gain.connect(output);source.start(when);
   source.onended=()=>{source.disconnect();gain.disconnect();};
   return {gain,source,when};
 }
